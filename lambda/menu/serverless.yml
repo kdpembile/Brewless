@@ -1,0 +1,12 @@
+service: brewless-menu
+provider:
+  name: aws
+  runtime: java17
+  timeout: 10
+package:
+  artifact: target/menu-0.0.1-SNAPSHOT.jar
+functions:
+  members:
+    handler: com.healthfirst.memberfunction.AwsLambdaHandler
+    environment:
+      FUNCTION_NAME: members

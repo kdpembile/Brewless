@@ -1,7 +1,5 @@
 spring:
   application:
     name: menu
-  main:
-    web-application-type: none
 
 

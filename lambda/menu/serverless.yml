@@ -11,13 +11,13 @@ provider:
     MAIN_CLASS: com.brewless.menu.MenuApplication
 
 functions:
-  uppercase:
+  getMenu:
     handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
-    name: uppercase
+    name: getMenu
     events:
       - http:
-          path: /uppercase
-          method: post
+          path: /menu
+          method: get
 
 package:
   artifact: target/menu-0.0.1-SNAPSHOT.jar

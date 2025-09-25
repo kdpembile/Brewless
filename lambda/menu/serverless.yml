@@ -1,12 +1,31 @@
 service: brewless-menu
+
 provider:
   name: aws
   runtime: java17
-  timeout: 10
+  stage: local
+  region: ap-southeast-1
+  timeout: 30
+  memorySize: 512
+  environment:
+    MAIN_CLASS: com.brewless.menu.MenuApplication
+
+functions:
+  uppercase:
+    handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+    name: uppercase
+    events:
+      - http:
+          path: /uppercase
+          method: post
+
 package:
   artifact: target/menu-0.0.1-SNAPSHOT.jar
-functions:
-  members:
-    handler: com.healthfirst.memberfunction.AwsLambdaHandler
-    environment:
-      FUNCTION_NAME: members
+
+plugins:
+  - serverless-localstack
+
+custom:
+  localstack:
+    stages:
+      - local

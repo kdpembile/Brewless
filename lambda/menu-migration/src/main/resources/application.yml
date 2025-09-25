@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: menu-migration
+
+spring.data:
+  mongodb:
+    uri: mongodb://${MONGO_HOST:localhost}:27017/BS_MENU_DB
+
+spring.liquibase:
+  database-change-log-lock-table: MENU_DATA_CHANGELOGLOCK
+  database-change-log-table: MENU_DATA_CHANGELOG
+  enabled: true
+  change-log: classpath:db.changelog/db.changelog-root.master.xml
+  url: mongodb://${MONGO_HOST:localhost}:27017/BS_MENU_DB

@@ -1,0 +1,16 @@
+package com.brewless.menu_migration.functions;
+
+import java.util.function.Supplier;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+@RequiredArgsConstructor
+@Component
+public class MenuMigrationFunction {
+
+  @Bean
+  public Supplier<String> syncMenu() {
+    return () -> "Successfully sync menu database";
+  }
+}

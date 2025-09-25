@@ -12,7 +12,8 @@ Resources:
       Timeout: 30
       Environment:
         Variables:
-          MAIN_CLASS: com.brewless.menu.MenuApplication
+          MONGO_HOST: host.docker.internal
+          MAIN_CLASS: com.brewless.menumigration.MenuMigrationApplication
 
   BrewlessMenuMigrationFunctionLogGroup:
     Type: AWS::Logs::LogGroup

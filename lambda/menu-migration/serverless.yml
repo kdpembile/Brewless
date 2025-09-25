@@ -5,10 +5,11 @@ provider:
   runtime: java17
   stage: local
   region: ap-southeast-1
-  timeout: 30
+  timeout: 300
   memorySize: 512
   environment:
-    MAIN_CLASS: com.brewless.menu.MenuMigrationApplication
+    MONGO_HOST: host.docker.internal
+    MAIN_CLASS: com.brewless.menumigration.MenuMigrationApplication
 
 functions:
   syncMenu:

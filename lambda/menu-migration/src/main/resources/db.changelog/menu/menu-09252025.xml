@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:mongodb="http://www.liquibase.org/xml/ns/mongodb"
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+  <changeSet id="insert-menu-09252025" author="KD">
+    <mongodb:insertMany collectionName="Menu">
+      <mongodb:documents>
+        <![CDATA[
+    [
+      {
+        name: "Espresso",
+        price: 120,
+        sizes: ["Single", "Double"]
+        "description": "Strong and bold coffee shot with rich crema.",
+        "imageUrl": "https://example.com/images/espresso.jpg"
+      },
+      {
+        name: "Caffè Latte",
+        price: 150,
+        sizes: ["Tall", "Grande", "Venti"]
+        description: "Smooth espresso blended with steamed milk.",
+        imageUrl: "https://example.com/images/latte.jpg"
+      }
+    ]
+    ]]>
+      </mongodb:documents>
+    </mongodb:insertMany>
+  </changeSet>
+
+</databaseChangeLog>

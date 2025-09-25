@@ -1,0 +1,31 @@
+service: brewless-menu-migration
+
+provider:
+  name: aws
+  runtime: java17
+  stage: local
+  region: ap-southeast-1
+  timeout: 30
+  memorySize: 512
+  environment:
+    MAIN_CLASS: com.brewless.menu.MenuMigrationApplication
+
+functions:
+  syncMenu:
+    handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+    name: syncMenu
+    events:
+      - http:
+          path: /menu
+          method: post
+
+package:
+  artifact: target/menu-migration-0.0.1-SNAPSHOT.jar
+
+plugins:
+  - serverless-localstack
+
+custom:
+  localstack:
+    stages:
+      - local

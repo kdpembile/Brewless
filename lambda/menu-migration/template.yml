@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  BrewlessMenuMigrationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: syncMenu
+      Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+      Runtime: java17
+      CodeUri: ./
+      MemorySize: 512
+      Timeout: 30
+      Environment:
+        Variables:
+          MAIN_CLASS: com.brewless.menu.MenuApplication
+
+  BrewlessMenuMigrationFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/lambda/syncMenu
+      RetentionInDays: 7

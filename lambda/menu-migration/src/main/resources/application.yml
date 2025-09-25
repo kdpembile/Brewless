@@ -1,6 +1,6 @@
 spring:
   application:
-    name: menu
+    name: menu-migration
 
 spring.data:
   mongodb:

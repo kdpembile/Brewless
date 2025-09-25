@@ -7,21 +7,21 @@ provider:
   region: ap-southeast-1
   timeout: 300
   memorySize: 512
-  environment:
-    MONGO_HOST: host.docker.internal
-    MAIN_CLASS: com.brewless.menu_migration.MenuMigrationApplication
 
 functions:
   syncMenu:
     handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
     name: syncMenu
+    environment:
+      FUNCTION_NAME: syncMenu
+      MONGO_HOST: host.docker.internal
     events:
       - http:
           path: /menu
           method: post
 
 package:
-  artifact: target/menu-migration-0.0.1-SNAPSHOT.jar
+  artifact: target/menu-migration-0.0.1-SNAPSHOT-aws.jar
 
 plugins:
   - serverless-localstack

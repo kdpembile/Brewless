@@ -132,6 +132,11 @@
 					<createDependencyReducedPom>false</createDependencyReducedPom>
 					<shadedArtifactAttached>true</shadedArtifactAttached>
 					<shadedClassifierName>aws</shadedClassifierName>
+					<artifactSet>
+						<includes>
+							<include>*:*</include>
+						</includes>
+					</artifactSet>
 				</configuration>
 			</plugin>
 		</plugins>

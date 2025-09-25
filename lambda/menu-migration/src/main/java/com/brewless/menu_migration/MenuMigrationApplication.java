@@ -1,4 +1,4 @@
-package com.brewless.menumigration;
+package com.brewless.menu_migration;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

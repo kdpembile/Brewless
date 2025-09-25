@@ -9,7 +9,7 @@ provider:
   memorySize: 512
   environment:
     MONGO_HOST: host.docker.internal
-    MAIN_CLASS: com.brewless.menumigration.MenuMigrationApplication
+    MAIN_CLASS: com.brewless.menu_migration.MenuMigrationApplication
 
 functions:
   syncMenu:

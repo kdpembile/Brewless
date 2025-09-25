@@ -1,4 +1,4 @@
-package com.brewless.menumigration.functions;
+package com.brewless.menu_migration.functions;
 
 import java.util.function.Supplier;
 import lombok.RequiredArgsConstructor;

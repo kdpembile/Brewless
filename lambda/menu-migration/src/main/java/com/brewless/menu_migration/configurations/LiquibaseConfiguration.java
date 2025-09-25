@@ -1,4 +1,4 @@
-package com.brewless.menumigration.configurations;
+package com.brewless.menu_migration.configurations;
 
 import liquibase.Contexts;
 import liquibase.Liquibase;

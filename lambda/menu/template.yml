@@ -4,7 +4,7 @@ Resources:
   BrewlessMenuFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: uppercase
+      FunctionName: getMenu
       Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
       Runtime: java17
       CodeUri: ./
@@ -17,5 +17,5 @@ Resources:
   BrewlessMenuFunctionLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: /aws/lambda/uppercase
+      LogGroupName: /aws/lambda/getMenu
       RetentionInDays: 7

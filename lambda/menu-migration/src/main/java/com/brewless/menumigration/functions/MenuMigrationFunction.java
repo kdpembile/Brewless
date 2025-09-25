@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class MenuFunction {
+public class MenuMigrationFunction {
 
   @Bean
   public Supplier<String> syncMenu() {

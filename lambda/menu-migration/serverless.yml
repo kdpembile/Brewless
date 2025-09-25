@@ -5,9 +5,6 @@ provider:
   runtime: java17
   stage: local
   region: ap-southeast-1
-  deploymentPrefix: brewless-menu-migration
-  deploymentBucket:
-    name: brewless-menu-migration
   timeout: 300
   memorySize: 512
 

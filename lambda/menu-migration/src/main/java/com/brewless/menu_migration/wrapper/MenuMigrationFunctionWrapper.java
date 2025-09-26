@@ -25,10 +25,7 @@ public class MenuMigrationFunctionWrapper extends FunctionAroundWrapper {
   @Override
   protected Object doApply(Object input, FunctionInvocationWrapper targetFunction) {
     try {
-      Object result = targetFunction.apply(input);
-
-      return MessageBuilder.withPayload(result)
-          .build();
+      return targetFunction.apply(input);
     } catch (MigrationException e) {
 
       log.error("[{}] Migration failed", applicationName, e);

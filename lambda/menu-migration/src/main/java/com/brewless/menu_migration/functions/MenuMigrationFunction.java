@@ -1,5 +1,6 @@
 package com.brewless.menu_migration.functions;
 
+import com.brewless.menu_migration.services.LiquibaseService;
 import java.util.function.Supplier;
 import liquibase.exception.LiquibaseException;
 import liquibase.integration.spring.SpringLiquibase;
@@ -13,14 +14,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class MenuMigrationFunction {
 
-  private final SpringLiquibase liquibase;
+  private final LiquibaseService liquibaseService;
 
   @Bean
   public Supplier<String> syncMenu() {
     return () -> {
 
       try {
-        liquibase.afterPropertiesSet();
+        liquibaseService.runMigration();
       } catch (LiquibaseException e) {
         throw new RuntimeException(e);
       }

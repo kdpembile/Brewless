@@ -25,6 +25,8 @@ import reactor.util.function.Tuples;
 @Component
 public class MenuFunction {
 
+  public static final String INVALID_REQUEST = "Invalid request";
+
   private final MenuService menuService;
 
   @Bean
@@ -63,7 +65,7 @@ public class MenuFunction {
         try {
           page = Integer.parseInt(queryParams.get("page"));
         } catch (NumberFormatException e) {
-          return Mono.error(new InvalidRequestException(e.getMessage(), e));
+          return Mono.error(new InvalidRequestException(INVALID_REQUEST, e));
         }
       }
 
@@ -71,7 +73,7 @@ public class MenuFunction {
         try {
           size = Integer.parseInt(queryParams.get("size"));
         } catch (NumberFormatException e) {
-          return Mono.error(new InvalidRequestException(e.getMessage(), e));
+          return Mono.error(new InvalidRequestException(INVALID_REQUEST, e));
         }
       }
     }
@@ -88,10 +90,10 @@ public class MenuFunction {
 
     if (correlationId == null
         || correlationId.isEmpty() || channel == null || channel.isEmpty()) {
-      log.error("Invalid request");
+      log.error(INVALID_REQUEST);
 
       return Mono.error(new InvalidRequestException(
-          "Invalid request", new RuntimeException("Something went wrong")));
+          INVALID_REQUEST, new RuntimeException("Something went wrong")));
     }
     return Mono.empty();
   }

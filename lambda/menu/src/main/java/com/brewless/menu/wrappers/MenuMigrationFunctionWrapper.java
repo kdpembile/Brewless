@@ -2,6 +2,7 @@ package com.brewless.menu.wrappers;
 
 import com.brewless.menu.dto.bs.errors.ErrorDto;
 import com.brewless.menu.dto.bs.response.ApiResponseDto;
+import com.brewless.menu.exceptions.InvalidRequestException;
 import com.brewless.menu.exceptions.MenuException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.function.context.catalog.FunctionAroundWrapper;
@@ -27,12 +28,23 @@ public class MenuMigrationFunctionWrapper extends FunctionAroundWrapper {
       return targetFunction.apply(input);
     } catch (MenuException e) {
 
-      log.error("[{}] Migration failed", applicationName, e);
+      log.error("[{}] Menu fetch failed", applicationName, e);
 
       ApiResponseDto<ErrorDto> apiResponseDto = new ApiResponseDto<>();
       apiResponseDto.setErrorDto(ErrorDto.builder()
               .code(e.getErrorCode())
               .message(e.getMessage())
+          .build());
+
+      return MessageBuilder.withPayload(apiResponseDto).build();
+
+    } catch (InvalidRequestException e) {
+      log.error("[{}] Menu fetch failed", applicationName, e);
+
+      ApiResponseDto<ErrorDto> apiResponseDto = new ApiResponseDto<>();
+      apiResponseDto.setErrorDto(ErrorDto.builder()
+          .code(e.getErrorCode())
+          .message(e.getMessage())
           .build());
 
       return MessageBuilder.withPayload(apiResponseDto).build();

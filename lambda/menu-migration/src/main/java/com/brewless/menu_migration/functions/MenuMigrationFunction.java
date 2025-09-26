@@ -1,6 +1,8 @@
 package com.brewless.menu_migration.functions;
 
+import com.brewless.menu_migration.models.MigrationResponseDto;
 import com.brewless.menu_migration.services.LiquibaseService;
+import java.time.LocalDateTime;
 import java.util.function.Supplier;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +17,13 @@ public class MenuMigrationFunction {
   private final LiquibaseService liquibaseService;
 
   @Bean
-  public Supplier<String> syncMenu() {
+  public Supplier<MigrationResponseDto> syncMenu() {
     return () -> {
       liquibaseService.runMigration();
-      return "Successfully sync menu database";
+      return MigrationResponseDto.builder()
+          .message("Successfully sync Menu")
+          .localDateTime(LocalDateTime.now())
+          .build();
     };
   }
 }

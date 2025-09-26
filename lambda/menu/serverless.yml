@@ -9,6 +9,7 @@ provider:
   memorySize: 512
   environment:
     MAIN_CLASS: com.brewless.menu.MenuApplication
+    MONGO_HOST: host.docker.internal
 
 functions:
   getMenu:

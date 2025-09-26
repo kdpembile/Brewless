@@ -13,6 +13,7 @@ Resources:
       Environment:
         Variables:
           MAIN_CLASS: com.brewless.menu.MenuApplication
+          MONGO_HOST: host.docker.internal
 
   BrewlessMenuFunctionLogGroup:
     Type: AWS::Logs::LogGroup

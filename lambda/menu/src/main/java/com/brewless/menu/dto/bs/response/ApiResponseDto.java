@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class ApiResponseDto<T> {
+
   private T data;
   private ErrorDto errorDto;
   private String message;

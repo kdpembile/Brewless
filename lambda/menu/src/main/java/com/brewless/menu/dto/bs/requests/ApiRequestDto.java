@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class ApiRequestDto<T> {
     private Map<String, String> headers;
-    private Map<String, String> queryParams;
+    private Map<String, String> queryStringParameters;
     private T body;
 }

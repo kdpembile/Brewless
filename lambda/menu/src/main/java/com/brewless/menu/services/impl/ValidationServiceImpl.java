@@ -39,7 +39,7 @@ public class ValidationServiceImpl implements ValidationService {
     int page = 0;
     int size = 100;
 
-    Map<String, String> queryParams = menuRequestApiRequestDto.getQueryParams();
+    Map<String, String> queryParams = menuRequestApiRequestDto.getQueryStringParameters();
 
     if (queryParams != null) {
       if (queryParams.containsKey("page")) {

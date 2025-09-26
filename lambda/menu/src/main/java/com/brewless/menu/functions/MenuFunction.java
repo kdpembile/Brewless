@@ -54,7 +54,7 @@ public class MenuFunction {
   private Mono<Tuple2<Integer, Integer>> validateQueryParams(
       ApiRequestDto<MenuRequestDto> menuRequestApiRequestDto) {
     int page = 0;
-    int size = 0;
+    int size = 100;
 
     Map<String, String> queryParams = menuRequestApiRequestDto.getQueryParams();
 

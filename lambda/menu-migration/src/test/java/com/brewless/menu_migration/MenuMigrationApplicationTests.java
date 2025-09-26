@@ -1,9 +1,9 @@
 package com.brewless.menu_migration;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 
-@SpringBootTest(properties = "spring.liquibase.enabled=false")
+@DataMongoTest
 class MenuMigrationApplicationTests {
 
 	@Test

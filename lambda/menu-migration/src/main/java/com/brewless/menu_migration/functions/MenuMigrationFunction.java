@@ -2,7 +2,6 @@ package com.brewless.menu_migration.functions;
 
 import com.brewless.menu_migration.services.LiquibaseService;
 import java.util.function.Supplier;
-import liquibase.exception.LiquibaseException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -18,13 +17,7 @@ public class MenuMigrationFunction {
   @Bean
   public Supplier<String> syncMenu() {
     return () -> {
-
-      try {
-        liquibaseService.runMigration();
-      } catch (LiquibaseException e) {
-        throw new RuntimeException(e);
-      }
-
+      liquibaseService.runMigration();
       return "Successfully sync menu database";
     };
   }

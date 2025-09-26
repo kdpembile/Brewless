@@ -20,7 +20,7 @@ functions:
           method: get
 
 package:
-  artifact: target/menu-0.0.1-SNAPSHOT.jar
+  artifact: target/menu-0.0.1-SNAPSHOT-aws.jar
 
 plugins:
   - serverless-localstack

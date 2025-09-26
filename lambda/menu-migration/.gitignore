@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Serverless Related
+.aws-sam
+.serverless
+node_modules
+package.json
+package-lock.json

@@ -1,5 +1,6 @@
 package com.brewless.menu.dto.bs.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
+@AllArgsConstructor
 public class PaginationDto {
 
   private int page;

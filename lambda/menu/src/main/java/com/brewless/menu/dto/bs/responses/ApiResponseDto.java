@@ -1,4 +1,4 @@
-package com.brewless.menu.dto.bs.response;
+package com.brewless.menu.dto.bs.responses;
 
 import com.brewless.menu.dto.bs.errors.ErrorDto;
 import java.time.LocalDateTime;

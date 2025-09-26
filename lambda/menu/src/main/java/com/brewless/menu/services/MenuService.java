@@ -1,6 +1,6 @@
 package com.brewless.menu.services;
 
-import com.brewless.menu.dto.bs.response.ApiResponseDto;
+import com.brewless.menu.dto.bs.responses.ApiResponseDto;
 import com.brewless.menu.models.bs.Menu;
 import java.util.List;
 import reactor.core.publisher.Mono;

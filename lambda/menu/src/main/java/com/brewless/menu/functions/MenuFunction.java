@@ -1,10 +1,10 @@
 package com.brewless.menu.functions;
 
+import com.brewless.menu.dto.bs.requests.MenuRequestDto;
 import com.brewless.menu.dto.bs.errors.ErrorDto;
 import com.brewless.menu.dto.bs.requests.ApiRequestDto;
-import com.brewless.menu.dto.bs.requests.MenuRequestDto;
-import com.brewless.menu.dto.bs.response.ApiResponseDto;
-import com.brewless.menu.dto.bs.response.PaginationDto;
+import com.brewless.menu.dto.bs.responses.ApiResponseDto;
+import com.brewless.menu.dto.bs.responses.PaginationDto;
 import com.brewless.menu.exceptions.InvalidRequestException;
 import com.brewless.menu.exceptions.MenuException;
 import com.brewless.menu.models.bs.Menu;

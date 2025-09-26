@@ -1,7 +1,7 @@
 package com.brewless.menu.services.impl;
 
-import com.brewless.menu.dto.bs.response.ApiResponseDto;
-import com.brewless.menu.dto.bs.response.PaginationDto;
+import com.brewless.menu.dto.bs.responses.ApiResponseDto;
+import com.brewless.menu.dto.bs.responses.PaginationDto;
 import com.brewless.menu.models.bs.Menu;
 import com.brewless.menu.repositories.bs.MenuRepository;
 import com.brewless.menu.services.MenuService;

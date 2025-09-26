@@ -4,4 +4,5 @@ spring:
 
 spring.data:
   mongodb:
-    uri: mongodb://${MONGO_HOST:localhost}:27017/BS_MENU_DB
+    bs:
+      uri: mongodb://${MONGO_HOST:localhost}:27017/BS_MENU_DB

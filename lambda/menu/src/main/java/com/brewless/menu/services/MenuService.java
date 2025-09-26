@@ -1,10 +1,12 @@
 package com.brewless.menu.services;
 
+import com.brewless.menu.dto.bs.response.ApiResponseDto;
+import com.brewless.menu.models.bs.Menu;
 import java.util.List;
-import java.util.Map;
+import reactor.core.publisher.Mono;
 
 public interface MenuService {
 
-  List<Map<String, Object>> getMenu();
+  Mono<ApiResponseDto<List<Menu>>> getMenu(int page, int size);
 
 }

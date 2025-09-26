@@ -19,6 +19,11 @@ functions:
       - http:
           path: /menu
           method: get
+          request:
+            parameters:
+              headers:
+                x-correlation-id: true
+                channel-name: true
 
 package:
   artifact: target/menu-0.0.1-SNAPSHOT-aws.jar

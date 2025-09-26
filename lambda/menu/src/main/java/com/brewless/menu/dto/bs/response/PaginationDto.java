@@ -1,15 +1,20 @@
 package com.brewless.menu.dto.bs.response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
-@AllArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@Builder
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class PaginationDto {
-    private int page;
-    private int size;
-    private long totalItems;
-    private int totalPages;
+
+  private int page;
+  private int size;
+  private long totalItems;
+  private int totalPages;
 }

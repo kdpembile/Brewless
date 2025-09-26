@@ -1,5 +1,8 @@
 package com.brewless.menu_migration.exceptions;
 
+import lombok.Getter;
+
+@Getter
 public class MigrationException extends RuntimeException {
 
     private final String errorCode;
@@ -9,7 +12,4 @@ public class MigrationException extends RuntimeException {
         this.errorCode = "MM00001";
     }
 
-    public String getErrorCode() {
-        return errorCode;
-    }
 }

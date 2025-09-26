@@ -1,12 +1,10 @@
 package com.brewless.menu_migration.exceptions;
 
 import com.brewless.menu_migration.models.ErrorResponseDto;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.function.context.catalog.FunctionAroundWrapper;
 import org.springframework.cloud.function.context.catalog.SimpleFunctionRegistry.FunctionInvocationWrapper;
 import org.springframework.stereotype.Component;
-import org.springframework.web.ErrorResponse;
 
 @Slf4j
 @Component
@@ -24,9 +22,13 @@ public class GlobalFunctionExceptionHandler extends FunctionAroundWrapper {
   protected Object doApply(Object input, FunctionInvocationWrapper targetFunction) {
     try {
       return targetFunction.apply(input);
+    } catch (MigrationException e) {
+      log.error("[{}] Migration failed", applicationName, e);
+      return new ErrorResponseDto(e.getErrorCode(), "Liquibase migration failed");
+
     } catch (Exception e) {
       log.error("[{}] Unexpected error", applicationName, e);
-      return new ErrorResponseDto("MM_0001", "Unexpected server error");
+      return new ErrorResponseDto("MM_0002", "Unexpected server error");
     }
   }
 }

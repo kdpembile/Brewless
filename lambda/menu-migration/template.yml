@@ -10,7 +10,7 @@ Resources:
       CodeUri: ./
       Environment:
         Variables:
-          MAIN_CLASS: "com.brewless.menu_migration.MenuMigrationApplication"
+          MAIN_CLASS: com.brewless.menu_migration.MenuMigrationApplication
           MONGO_HOST: host.docker.internal
       MemorySize: 512
       Timeout: 300

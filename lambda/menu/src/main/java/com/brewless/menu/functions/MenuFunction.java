@@ -3,9 +3,12 @@ package com.brewless.menu.functions;
 import com.brewless.menu.dto.bs.requests.ApiRequestDto;
 import com.brewless.menu.dto.bs.requests.MenuRequestDto;
 import com.brewless.menu.dto.bs.response.ApiResponseDto;
+import com.brewless.menu.dto.bs.response.PaginationDto;
 import com.brewless.menu.exceptions.InvalidRequestException;
 import com.brewless.menu.models.bs.Menu;
 import com.brewless.menu.services.MenuService;
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -28,7 +31,24 @@ public class MenuFunction {
   public Function<ApiRequestDto<MenuRequestDto>, Mono<ApiResponseDto<List<Menu>>>> getMenu() {
     return request -> Mono.just(validateHeaders(request))
         .then(validateQueryParams(request))
-        .flatMap(tuple2 -> menuService.getMenu(tuple2.getT1(), tuple2.getT2()));
+        .flatMap(tuple2 -> menuService.getMenu(tuple2.getT1(), tuple2.getT2())
+            .switchIfEmpty(Mono.defer(() -> {
+              PaginationDto pagination = PaginationDto.builder()
+                  .page(tuple2.getT1())
+                  .size(tuple2.getT2())
+                  .build();
+
+              String message = "No menu items found for page %s with size %s"
+                  .formatted(tuple2.getT1(), tuple2.getT2());
+
+              ApiResponseDto<List<Menu>> response = new ApiResponseDto<>();
+              response.setData(Collections.emptyList());
+              response.setMessage(message);
+              response.setTimeStamp(LocalDateTime.now());
+              response.setPaginationDto(pagination);
+
+              return Mono.just(response);
+            })));
   }
 
   private Mono<Tuple2<Integer, Integer>> validateQueryParams(

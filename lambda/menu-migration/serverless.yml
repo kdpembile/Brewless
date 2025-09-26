@@ -7,15 +7,15 @@ provider:
   region: ap-southeast-1
   timeout: 300
   memorySize: 512
+  environment:
+    FUNCTION_NAME: syncMenu
+    MAIN_CLASS: com.brewless.menu_migration.MenuMigrationApplication
+    MONGO_HOST: host.docker.internal
 
 functions:
   syncMenu:
     handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
     name: syncMenu
-    environment:
-      FUNCTION_NAME: syncMenu
-      MAIN_CLASS: "com.brewless.menu_migration.MenuMigrationApplication"
-      MONGO_HOST: host.docker.internal
     events:
       - http:
           path: /menu

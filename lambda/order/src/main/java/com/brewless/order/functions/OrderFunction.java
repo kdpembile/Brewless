@@ -45,7 +45,7 @@ public class OrderFunction {
   public Function<ApiRequestDto<OrderRequestDto>, Mono<ApiResponseDto<OrderResponseDto>>> createOrder() {
     return request -> validationService.validateHeaders(request)
         .doOnNext(unused -> log.info("{} ::: Creating order...", applicationName))
-        .then(orderService.createOrder(request.getBody()))
+        .then(orderService.createOrder(request))
         .doOnNext(response ->
             log.info("{} ::: Order ::: {}, successfully created with status of ::: {}"
                 , applicationName

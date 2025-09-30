@@ -1,10 +1,12 @@
 package com.brewless.order.services.impl;
 
+import com.brewless.order.dtos.requests.ApiRequestDto;
 import com.brewless.order.dtos.requests.OrderRequestDto;
 import com.brewless.order.dtos.responses.ApiResponseDto;
 import com.brewless.order.dtos.responses.OrderDto;
 import com.brewless.order.dtos.responses.OrderResponseDto;
 import com.brewless.order.dtos.responses.PaginationDto;
+import com.brewless.order.enums.Status;
 import com.brewless.order.mappers.OrderMapper;
 import com.brewless.order.repositories.bs.OrderRepository;
 import com.brewless.order.services.OrderService;
@@ -24,8 +26,17 @@ public class OrderServiceImpl implements OrderService {
   private final OrderMapper orderMapper;
 
   @Override
-  public Mono<ApiResponseDto<OrderResponseDto>> createOrder(OrderRequestDto orderRequestDto) {
-    return orderRepository.save(orderMapper.buildOrder(orderRequestDto))
+  public Mono<ApiResponseDto<OrderResponseDto>> createOrder(ApiRequestDto<OrderRequestDto> request) {
+    return Mono.just(orderMapper.buildOrder(request.getBody()))
+        .flatMap(order -> {
+          order.setStatus(Status.PENDING.getValue());
+          order.setCorrelationId(request.getHeaders().get("correlation-id"));
+          order.setCreatedDate(LocalDateTime.now());
+          order.setUpdatedDate(LocalDateTime.now());
+
+          return orderRepository.save(order);
+        })
+        .doOnNext(order -> log.info("Order saved: {}", order))
         .flatMap(order -> {
           OrderResponseDto orderResponseDto = orderMapper.buildOrderResponseDto(order);
 

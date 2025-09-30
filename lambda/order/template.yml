@@ -14,6 +14,7 @@ Resources:
         Variables:
           MAIN_CLASS: com.brewless.order.OrderApplication
           MONGO_HOST: host.docker.internal
+          SPRING_CLOUD_FUNCTION_DEFINITION: createOrder
   BrewlessGetOrdersFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -27,6 +28,7 @@ Resources:
         Variables:
           MAIN_CLASS: com.brewless.order.OrderApplication
           MONGO_HOST: host.docker.internal
+          SPRING_CLOUD_FUNCTION_DEFINITION: getOrders
   BrewlessGetOrderFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -40,6 +42,7 @@ Resources:
         Variables:
           MAIN_CLASS: com.brewless.order.OrderApplication
           MONGO_HOST: host.docker.internal
+          SPRING_CLOUD_FUNCTION_DEFINITION: getOrder
   BrewlessCreateOrderFunctionLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:

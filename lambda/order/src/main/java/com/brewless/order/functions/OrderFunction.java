@@ -59,7 +59,7 @@ public class OrderFunction {
         .then(validationService.validateQueryParams(request))
         .flatMap(tuple2 -> orderService.getOrders(tuple2.getT1(), tuple2.getT2())
             .switchIfEmpty(Mono.defer(() -> buildGetOrdersFallBackResponse(tuple2))))
-        .onErrorResume(this::mapGetOrdersError);
+        .onErrorResume(throwable -> mapError(throwable, "getOrders"));
   }
 
   @Bean
@@ -67,7 +67,7 @@ public class OrderFunction {
     return request -> validationService.validateHeaders(request)
         .flatMap(tuple2 -> orderService.getOrder(request.getBody().get("txnRefNumber"))
             .switchIfEmpty(Mono.defer(()-> buildGetOrderFallBackResponse(request))))
-        .onErrorResume(this::mapGetOrderError);
+        .onErrorResume(throwable -> mapError(throwable, "getOrder"));
   }
 
   private Mono<ApiResponseDto<OrderDto>> buildGetOrderFallBackResponse(ApiRequestDto<Map<String, String>> request) {
@@ -100,66 +100,37 @@ public class OrderFunction {
     return Mono.just(response);
   }
 
-  private Mono<ApiResponseDto<List<OrderDto>>> mapGetOrdersError(Throwable throwable) {
-    if (throwable instanceof OrderException orderException) {
-      log.error("[{}] Orders fetch failed", applicationName, orderException);
+  private <T> Mono<ApiResponseDto<T>> mapError(Throwable throwable, String logContext) {
+    log.error("[{}] {} failed", applicationName, logContext, throwable);
 
-      ApiResponseDto<List<OrderDto>> apiResponseDto = new ApiResponseDto<>();
-      apiResponseDto.setErrorDto(ErrorDto.builder()
+    ErrorDto errorDto;
+    ApiResponseDto<T> response = new ApiResponseDto<>();
+
+    if (throwable instanceof OrderException orderException) {
+      errorDto = ErrorDto.builder()
           .code(orderException.getErrorCode())
           .message(orderException.getMessage())
-          .build());
+          .build();
 
-      return Mono.just(apiResponseDto);
-
-    } else if (throwable instanceof InvalidRequestException invalidRequestException) {
-      log.error("[{}] Orders fetch failed", applicationName, invalidRequestException);
-
-      ApiResponseDto<List<OrderDto>> apiResponseDto = new ApiResponseDto<>();
-      apiResponseDto.setErrorDto(ErrorDto.builder()
-          .code(invalidRequestException.getErrorCode())
-          .message(invalidRequestException.getMessage())
-          .build());
-
-    }
-
-    ApiResponseDto<List<OrderDto>> apiResponseDto = new ApiResponseDto<>();
-    apiResponseDto.setErrorDto(ErrorDto.builder()
-        .code("OS00003")
-        .message(throwable.getMessage())
-        .build());
-
-    return Mono.just(apiResponseDto);
-  }
-
-  private Mono<ApiResponseDto<OrderDto>> mapGetOrderError(Throwable throwable) {
-    if (throwable instanceof OrderException orderException) {
-      log.error("[{}] Order fetch failed", applicationName, orderException);
-
-      ApiResponseDto<OrderDto> response = new ApiResponseDto<>();
-      response.setErrorDto(ErrorDto.builder()
-          .code(orderException.getErrorCode())
-          .message(orderException.getMessage())
-          .build());
-
-      return Mono.just(response);
+      response.setErrorDto(errorDto);
+      response.setMessage(orderException.getMessage());
 
     } else if (throwable instanceof InvalidRequestException invalidRequestException) {
-      log.error("[{}] Order fetch failed", applicationName, invalidRequestException);
-
-      ApiResponseDto<OrderDto> response = new ApiResponseDto<>();
-      response.setErrorDto(ErrorDto.builder()
+      errorDto = ErrorDto.builder()
           .code(invalidRequestException.getErrorCode())
           .message(invalidRequestException.getMessage())
-          .build());
+          .build();
 
+      response.setErrorDto(errorDto);
+      response.setMessage(invalidRequestException.getMessage());
+    } else {
+      errorDto = ErrorDto.builder()
+          .code("OS00003")
+          .message(throwable.getMessage())
+          .build();
+
+      response.setErrorDto(errorDto);
     }
-
-    ApiResponseDto<OrderDto> response = new ApiResponseDto<>();
-    response.setErrorDto(ErrorDto.builder()
-        .code("OS00003")
-        .message(throwable.getMessage())
-        .build());
 
     return Mono.just(response);
   }

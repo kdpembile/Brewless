@@ -54,7 +54,7 @@ public class OrderFunction {
   }
 
   @Bean
-  public Function<ApiRequestDto<?>, Mono<ApiResponseDto<List<OrderDto>>>> getOrders() {
+  public Function<ApiRequestDto<Object>, Mono<ApiResponseDto<List<OrderDto>>>> getOrders() {
     return request -> validationService.validateHeaders(request)
         .then(validationService.validateQueryParams(request))
         .flatMap(tuple2 -> orderService.getOrders(tuple2.getT1(), tuple2.getT2())

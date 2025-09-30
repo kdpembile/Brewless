@@ -10,8 +10,8 @@ import lombok.Data;
 public class ApiResponseDto<T> {
 
   private T data;
-  private ErrorDto errorDto;
+  private ErrorDto error;
   private String message;
   private LocalDateTime timeStamp;
-  private PaginationDto paginationDto;
+  private PaginationDto pagination;
 }

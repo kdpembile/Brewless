@@ -95,7 +95,7 @@ public class OrderFunction {
     response.setData(Collections.emptyList());
     response.setMessage(message);
     response.setTimeStamp(LocalDateTime.now());
-    response.setPaginationDto(pagination);
+    response.setPagination(pagination);
 
     return Mono.just(response);
   }
@@ -112,24 +112,21 @@ public class OrderFunction {
           .message(orderException.getMessage())
           .build();
 
-      response.setErrorDto(errorDto);
-      response.setMessage(orderException.getMessage());
-
+      response.setError(errorDto);
     } else if (throwable instanceof InvalidRequestException invalidRequestException) {
       errorDto = ErrorDto.builder()
           .code(invalidRequestException.getErrorCode())
           .message(invalidRequestException.getMessage())
           .build();
 
-      response.setErrorDto(errorDto);
-      response.setMessage(invalidRequestException.getMessage());
+      response.setError(errorDto);
     } else {
       errorDto = ErrorDto.builder()
           .code("OS00003")
           .message(throwable.getMessage())
           .build();
 
-      response.setErrorDto(errorDto);
+      response.setError(errorDto);
     }
 
     return Mono.just(response);

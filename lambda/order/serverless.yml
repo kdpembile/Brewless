@@ -1,0 +1,37 @@
+service: brewless-menu
+
+provider:
+  name: aws
+  runtime: java17
+  stage: local
+  region: ap-southeast-1
+  timeout: 30
+  memorySize: 512
+  environment:
+    MAIN_CLASS: com.brewless.order.OrderApplication
+    MONGO_HOST: host.docker.internal
+
+functions:
+  getMenu:
+    handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+    name: createOrder
+    events:
+      - http:
+          path: /create-order
+          method: post
+          request:
+            parameters:
+              headers:
+                x-correlation-id: true
+                channel-name: true
+
+package:
+  artifact: target/order-0.0.1-SNAPSHOT-aws.jar
+
+plugins:
+  - serverless-localstack
+
+custom:
+  localstack:
+    stages:
+      - local

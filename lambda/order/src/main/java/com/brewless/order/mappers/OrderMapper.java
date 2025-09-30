@@ -5,7 +5,6 @@ import com.brewless.order.dtos.responses.OrderDto;
 import com.brewless.order.dtos.responses.OrderResponseDto;
 import com.brewless.order.models.bs.Order;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper
 public interface OrderMapper {

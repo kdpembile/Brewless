@@ -12,12 +12,36 @@ provider:
     MONGO_HOST: host.docker.internal
 
 functions:
-  getMenu:
+  createOrder:
     handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
     name: createOrder
     events:
       - http:
           path: /create-order
+          method: post
+          request:
+            parameters:
+              headers:
+                x-correlation-id: true
+                channel-name: true
+  getOrders:
+    handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+    name: getOrders
+    events:
+      - http:
+          path: /get-orders
+          method: post
+          request:
+            parameters:
+              headers:
+                x-correlation-id: true
+                channel-name: true
+  getOrder:
+    handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+    name: getOrders
+    events:
+      - http:
+          path: /get-order
           method: post
           request:
             parameters:

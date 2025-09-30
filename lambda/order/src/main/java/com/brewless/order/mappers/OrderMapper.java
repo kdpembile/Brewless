@@ -6,7 +6,7 @@ import com.brewless.order.dtos.responses.OrderResponseDto;
 import com.brewless.order.models.bs.Order;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface OrderMapper {
 
   Order buildOrder(OrderRequestDto orderRequestDto);

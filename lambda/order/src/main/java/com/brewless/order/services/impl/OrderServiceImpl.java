@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
     return Mono.just(orderMapper.buildOrder(request.getBody()))
         .flatMap(order -> {
           order.setStatus(Status.PENDING.getValue());
-          order.setCorrelationId(request.getHeaders().get("correlation-id"));
+          order.setCorrelationId(request.getHeaders().get("x-correlation-id"));
           order.setCreatedDate(LocalDateTime.now());
           order.setUpdatedDate(LocalDateTime.now());
 

@@ -50,7 +50,8 @@ public class OrderFunction {
             log.info("{} ::: Order ::: {}, successfully created with status of ::: {}"
                 , applicationName
                 , response.getData().getTxnRefNumber()
-                , response.getData().getStatus()));
+                , response.getData().getStatus()))
+        .onErrorResume(throwable -> mapError(throwable, "createOrder"));
   }
 
   @Bean

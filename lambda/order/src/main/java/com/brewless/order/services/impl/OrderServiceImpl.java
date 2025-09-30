@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
               .toList());
           response.setMessage("Orders fetched successfully");
           response.setTimeStamp(LocalDateTime.now());
-          response.setPaginationDto(pagination);
+          response.setPagination(pagination);
 
           return Mono.just(response);
         });

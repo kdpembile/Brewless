@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 
 @Configuration
 @EnableReactiveMongoRepositories(
-    basePackages = {"com.brewless.menu.repositories.bs"},
+    basePackages = {"com.brewless.order.repositories.bs"},
     reactiveMongoTemplateRef = BsDbConfig.MONGO_BS_TEMPLATE
 )
 public class BsDbConfig {

@@ -11,12 +11,10 @@ Resources:
       MemorySize: 512
       Timeout: 300
       Environment:
-        MAIN_CLASS: com.brewless.menu.MenuApplication
-        MONGO_HOST: host.docker.internal
-        SPRING_CLOUD_FUNCTION_DEFINITION: getMenu
-
-
-
+        Variables:
+          MAIN_CLASS: com.brewless.menu.MenuApplication
+          MONGO_HOST: host.docker.internal
+          SPRING_CLOUD_FUNCTION_DEFINITION: getMenu
   BrewlessMenuFunctionLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:

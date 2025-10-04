@@ -19,6 +19,11 @@ public class ValidationServiceImpl implements ValidationService {
   @Override
   public Mono<Void> validateHeaders(ApiRequestDto<?> request) {
     Map<String, String> headers = request.getHeaders();
+
+    if (headers == null) {
+      return Mono.error(new InvalidRequestException(INVALID_REQUEST));
+    }
+
     String correlationId = headers.get("x-correlation-id");
     String channel = headers.get("channel-name");
 

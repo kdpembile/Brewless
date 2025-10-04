@@ -44,7 +44,7 @@ public class MenuServiceImpl implements MenuService {
 
           ApiResponseDto<List<Menu>> response = new ApiResponseDto<>();
           response.setData(tuple2.getT2());
-          response.setMessage("Menus fetched successfully");
+          response.setMessage("Menu fetched successfully");
           response.setTimeStamp(LocalDateTime.now());
           response.setPagination(pagination);
 

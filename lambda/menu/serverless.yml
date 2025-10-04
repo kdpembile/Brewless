@@ -25,18 +25,6 @@ functions:
               headers:
                 x-correlation-id: true
                 channel-name: true
-            template:
-              application/json: |
-                {
-                  "headers": {
-                    "x-correlation-id": "$input.params('x-correlation-id')",
-                    "channel-name": "$input.params('channel-name')"
-                  },
-                  "queryParams": {
-                    "page": "$input.params('page')",
-                    "size": "$input.params('size')"
-                  }
-                }
 
 package:
   artifact: target/menu-0.0.1-SNAPSHOT-aws.jar

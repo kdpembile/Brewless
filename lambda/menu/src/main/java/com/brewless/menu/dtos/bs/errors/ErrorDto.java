@@ -1,4 +1,4 @@
-package com.brewless.menu.dto.bs.errors;
+package com.brewless.menu.dtos.bs.errors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;

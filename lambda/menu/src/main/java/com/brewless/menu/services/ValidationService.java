@@ -1,7 +1,7 @@
 package com.brewless.menu.services;
 
-import com.brewless.menu.dto.bs.requests.ApiRequestDto;
-import com.brewless.menu.dto.bs.requests.MenuRequestDto;
+import com.brewless.menu.dtos.bs.requests.ApiRequestDto;
+import com.brewless.menu.dtos.bs.requests.MenuRequestDto;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 

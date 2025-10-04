@@ -1,7 +1,7 @@
 package com.brewless.menu.services.impl;
 
-import com.brewless.menu.dto.bs.requests.ApiRequestDto;
-import com.brewless.menu.dto.bs.requests.MenuRequestDto;
+import com.brewless.menu.dtos.bs.requests.ApiRequestDto;
+import com.brewless.menu.dtos.bs.requests.MenuRequestDto;
 import com.brewless.menu.exceptions.InvalidRequestException;
 import com.brewless.menu.services.ValidationService;
 import java.util.Map;
@@ -27,8 +27,7 @@ public class ValidationServiceImpl implements ValidationService {
         || correlationId.isEmpty() || channel == null || channel.isEmpty()) {
       log.error(INVALID_REQUEST);
 
-      return Mono.error(new InvalidRequestException(
-          INVALID_REQUEST, new RuntimeException("Something went wrong")));
+      return Mono.error(new InvalidRequestException(INVALID_REQUEST));
     }
     return Mono.empty();
   }

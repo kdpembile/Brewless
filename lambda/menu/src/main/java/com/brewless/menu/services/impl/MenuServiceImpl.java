@@ -1,7 +1,7 @@
 package com.brewless.menu.services.impl;
 
-import com.brewless.menu.dto.bs.responses.ApiResponseDto;
-import com.brewless.menu.dto.bs.responses.PaginationDto;
+import com.brewless.menu.dtos.bs.responses.ApiResponseDto;
+import com.brewless.menu.dtos.bs.responses.PaginationDto;
 import com.brewless.menu.models.bs.Menu;
 import com.brewless.menu.repositories.bs.MenuRepository;
 import com.brewless.menu.services.MenuService;
@@ -46,7 +46,7 @@ public class MenuServiceImpl implements MenuService {
           response.setData(tuple2.getT2());
           response.setMessage("Menus fetched successfully");
           response.setTimeStamp(LocalDateTime.now());
-          response.setPaginationDto(pagination);
+          response.setPagination(pagination);
 
           return Mono.just(response);
         });

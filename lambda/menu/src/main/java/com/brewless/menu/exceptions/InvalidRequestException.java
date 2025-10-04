@@ -9,7 +9,11 @@ public class InvalidRequestException extends RuntimeException {
 
     public InvalidRequestException(String message, Throwable cause) {
         super(message, cause);
-        this.errorCode = "M00003";
+        this.errorCode = "MS00002";
     }
 
+    public InvalidRequestException(String message) {
+        super(message);
+        this.errorCode = "MS00002";
+    }
 }

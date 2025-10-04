@@ -1,10 +1,10 @@
 package com.brewless.menu.functions;
 
-import com.brewless.menu.dto.bs.requests.MenuRequestDto;
-import com.brewless.menu.dto.bs.errors.ErrorDto;
-import com.brewless.menu.dto.bs.requests.ApiRequestDto;
-import com.brewless.menu.dto.bs.responses.ApiResponseDto;
-import com.brewless.menu.dto.bs.responses.PaginationDto;
+import com.brewless.menu.dtos.bs.requests.MenuRequestDto;
+import com.brewless.menu.dtos.bs.errors.ErrorDto;
+import com.brewless.menu.dtos.bs.requests.ApiRequestDto;
+import com.brewless.menu.dtos.bs.responses.ApiResponseDto;
+import com.brewless.menu.dtos.bs.responses.PaginationDto;
 import com.brewless.menu.exceptions.InvalidRequestException;
 import com.brewless.menu.exceptions.MenuException;
 import com.brewless.menu.models.bs.Menu;
@@ -45,7 +45,7 @@ public class MenuFunction {
         .then(validationService.validateQueryParams(request))
         .flatMap(tuple2 -> menuService.getMenu(tuple2.getT1(), tuple2.getT2())
             .switchIfEmpty(Mono.defer(() -> buildFallBackResponse(tuple2))))
-        .onErrorResume(this::mapError);
+        .onErrorResume(throwable -> mapError(throwable, "getMenu"));
   }
 
   private Mono<ApiResponseDto<List<Menu>>> buildFallBackResponse(Tuple2<Integer, Integer> tuple2) {
@@ -62,39 +62,40 @@ public class MenuFunction {
     response.setData(Collections.emptyList());
     response.setMessage(message);
     response.setTimeStamp(LocalDateTime.now());
-    response.setPaginationDto(pagination);
+    response.setPagination(pagination);
 
     return Mono.just(response);
   }
 
-  private Mono<ApiResponseDto<List<Menu>>> mapError(Throwable throwable) {
-    if (throwable instanceof MenuException menuException) {
-      log.error("[{}] Menu fetch failed", applicationName, menuException);
+  private <T> Mono<ApiResponseDto<T>> mapError(Throwable throwable, String logContext) {
+    log.error("[{}] {} failed", applicationName, logContext, throwable);
 
-      ApiResponseDto<List<Menu>> apiResponseDto = new ApiResponseDto<>();
-      apiResponseDto.setErrorDto(ErrorDto.builder()
+    ErrorDto errorDto;
+    ApiResponseDto<T> response = new ApiResponseDto<>();
+
+    if (throwable instanceof MenuException menuException) {
+      errorDto = ErrorDto.builder()
           .code(menuException.getErrorCode())
           .message(menuException.getMessage())
-          .build());
+          .build();
 
-      return Mono.just(apiResponseDto);
+      response.setError(errorDto);
     } else if (throwable instanceof InvalidRequestException invalidRequestException) {
-      log.error("[{}] Menu fetch failed", applicationName, invalidRequestException);
-
-      ApiResponseDto<List<Menu>> apiResponseDto = new ApiResponseDto<>();
-      apiResponseDto.setErrorDto(ErrorDto.builder()
+      errorDto = ErrorDto.builder()
           .code(invalidRequestException.getErrorCode())
           .message(invalidRequestException.getMessage())
-          .build());
+          .build();
 
+      response.setError(errorDto);
+    } else {
+      errorDto = ErrorDto.builder()
+          .code("MS00003")
+          .message(throwable.getMessage())
+          .build();
+
+      response.setError(errorDto);
     }
 
-    ApiResponseDto<List<Menu>> apiResponseDto = new ApiResponseDto<>();
-    apiResponseDto.setErrorDto(ErrorDto.builder()
-        .code("M00002")
-        .message(throwable.getMessage())
-        .build());
-
-    return Mono.just(apiResponseDto);
+    return Mono.just(response);
   }
 }

@@ -1,4 +1,4 @@
-package com.brewless.menu.dto.bs.responses;
+package com.brewless.menu.dtos.bs.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

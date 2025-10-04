@@ -1,4 +1,4 @@
-package com.brewless.menu.dto.bs.requests;
+package com.brewless.menu.dtos.bs.requests;
 
 import java.util.Map;
 import lombok.Data;

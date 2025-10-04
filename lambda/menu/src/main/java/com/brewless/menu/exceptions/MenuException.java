@@ -9,7 +9,7 @@ public class MenuException extends RuntimeException {
 
     public MenuException(String message, Throwable cause) {
         super(message, cause);
-        this.errorCode = "M00001";
+        this.errorCode = "MS00001";
     }
 
 }

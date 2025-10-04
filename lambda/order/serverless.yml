@@ -7,14 +7,15 @@ provider:
   region: ap-southeast-1
   timeout: 30
   memorySize: 512
-  environment:
-    MAIN_CLASS: com.brewless.order.OrderApplication
-    MONGO_HOST: host.docker.internal
 
 functions:
   createOrder:
     handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
     name: createOrder
+    environment:
+      MAIN_CLASS: com.brewless.order.OrderApplication
+      MONGO_HOST: host.docker.internal
+      SPRING_CLOUD_FUNCTION_DEFINITION: createOrder
     events:
       - http:
           path: /create-order
@@ -27,6 +28,10 @@ functions:
   getOrders:
     handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
     name: getOrders
+    environment:
+      MAIN_CLASS: com.brewless.order.OrderApplication
+      MONGO_HOST: host.docker.internal
+      SPRING_CLOUD_FUNCTION_DEFINITION: getOrders
     events:
       - http:
           path: /get-orders
@@ -38,7 +43,11 @@ functions:
                 channel-name: true
   getOrder:
     handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
-    name: getOrders
+    name: getOrder
+    environment:
+      MAIN_CLASS: com.brewless.order.OrderApplication
+      MONGO_HOST: host.docker.internal
+      SPRING_CLOUD_FUNCTION_DEFINITION: getOrder
     events:
       - http:
           path: /get-order
